@@ -63,7 +63,7 @@ social-media-app/
 ---
 
 ## 📸 Screenshots
-*(Add screenshots of your login, feed, and post pages here)*
+![Homepage Screenshot](images/homepage.png)
 
 ---
 
