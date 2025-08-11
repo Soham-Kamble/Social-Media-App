@@ -63,7 +63,7 @@ social-media-app/
 ---
 
 ## 📸 Screenshots
-
+![Homepage Screenshot](images/homepage.png)
 
 ---
 
