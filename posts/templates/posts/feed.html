@@ -1,0 +1,108 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block body %}
+<div class="flex justify-center mt-10">
+    <h2 class="text-3xl font-semibold text-gray-700">My Posts</h2>
+</div>
+
+<div class="flex flex-col items-center space-y-10 py-10">
+    {% for post in posts %}
+    <div class="w-full max-w-md bg-white rounded-xl shadow-md overflow-hidden">
+
+        <!-- User Info -->
+        <div class="flex items-center px-4 py-3">
+            <img class="h-10 w-10 rounded-full object-cover" src="{{ post.user.profile.photo.url }}" alt="User profile">
+            <span class="ml-3 font-semibold text-gray-800">{{ post.user }}</span>
+        </div>
+
+        <!-- Post Image -->
+        <img class="w-full h-96 object-cover" src="{{ post.image.url }}" alt="Post image">
+
+        <!-- Action Buttons -->
+        <div class="px-4 py-3 flex space-x-4">
+            <a id="{{ post.id }}" class="btn-like">
+                {% if logged_user in post.liked_by.all %}
+                <img class="w-6 h-6 cursor-pointer" src="{% static 'users/images/redlike.png' %}" alt="Like">
+                {% else %}
+                <img class="w-6 h-6 cursor-pointer" src="{% static 'users/images/like.png' %}" alt="Like">
+                {% endif %}
+            </a>
+            <img class="w-6 h-6 cursor-pointer" src="{% static 'users/images/comment.png' %}" alt="Comment">
+            <img class="w-6 h-6 cursor-pointer" src="{% static 'users/images/share.png' %}" alt="Share">
+        </div>
+
+        <!-- Like Count -->
+        <div class="px-4 text-sm text-gray-600 mb-2">
+            {% with like_count=post.liked_by.all|length %}
+                {% if like_count == 1 %}
+                    {{ post.liked_by.all.0 }} likes this
+                {% elif like_count > 1 %}
+                    {{ post.liked_by.all.0 }} & {{ like_count|add:"-1" }} others like this
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <!-- Title & Caption -->
+        <div class="px-4 pb-2">
+            <h3 class="font-bold text-gray-800">{{ post.title }}</h3>
+            <p class="text-gray-700 text-sm mt-1">{{ post.caption }}</p>
+        </div>
+
+        <!-- Comments Section -->
+        <div class="px-4 py-3 text-sm text-gray-800 space-y-1">
+            {% for comment in post.comments.all %}
+            <div>
+                <span class="font-semibold">{{ comment.posted_by.username }}</span>: {{ comment.body }}
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Comment Form -->
+        <div class="border-t px-4 py-4 bg-gray-50">
+            <form method="POST">
+                {% csrf_token %}
+                <label class="block text-sm text-gray-600 font-medium mb-1">Add Comment</label>
+                <div class="flex items-center space-x-2">
+                    <div class="flex-1">
+                        {{ comment_form.body|add_class:"w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400" }}
+                    </div>
+                    <input type="hidden" name="post_id" value="{{ post.id }}">
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded" type="submit">Post</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- AJAX for like -->
+<script type="text/javascript">
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    $(document).on('click', '.btn-like', function () {
+        var post_id = this.id;
+        $.ajax({
+            method: "POST",
+            url: '/posts/like',
+            data: { post_id: post_id },
+            headers: { "X-CSRFToken": getCookie('csrftoken') },
+            success: function () { location.reload(); }
+        });
+    });
+</script>
+{% endblock %}
