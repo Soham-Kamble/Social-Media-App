@@ -18,7 +18,7 @@ Designed with a clean, responsive UI using Tailwind CSS.
 
 ```bash
 # 1️⃣ Clone the repository
-git clone https://github.com/yourusername/social-media-app.git
+git clone https://github.com/Soham-Kamble/Social-Media-App
 cd social-media-app
 
 # 2️⃣ Create a virtual environment
