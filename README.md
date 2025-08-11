@@ -1,67 +1,15 @@
 📸 Social Media App
-A Django-based social media application where users can register, log in, share posts, like, and comment.
-The project uses TailwindCSS for styling and provides a clean, responsive interface.
+A simple social media platform built with Django, where users can register, log in, post photos, like posts, and comment on others' content.
+Designed with a clean, responsive UI using Tailwind CSS.
 
-🚀 Features
-🔐 User Authentication – Register, login, logout, and password reset.
+✨ Features
+👤 User Authentication (Register, Login, Logout, Password Reset)
 
-📝 Post Creation – Upload and share images with captions.
+🖼 Post Creation (Upload and share photos)
 
-❤️ Like System – Like or unlike posts.
+❤️ Like System (Toggle likes on posts)
 
-💬 Comment System – Add comments and view others' thoughts.
+💬 Comment System (Comment on any post)
 
-🎨 TailwindCSS Styling – Modern and responsive design.
+📱 Responsive UI (Tailwind CSS for modern styling)
 
-📱 Mobile-Friendly UI – Works on all screen sizes.
-
-📂 Project Structure
-bash
-Copy
-Edit
-socialproject/
-├── posts/                # Post-related views, models, templates
-├── users/                # User authentication & profile
-├── static/               # CSS, images
-├── templates/            # HTML templates
-└── manage.py             # Django entry point
-
-🛠️ Installation
-1.Clone the repository
-
-bash
-Copy
-Edit
-git clone https://github.com/yourusername/social-media-app.git
-cd social-media-app
-2.Create a virtual environment
-
-bash
-Copy
-Edit
-python -m venv venv
-source venv/bin/activate   # On Windows: venv\Scripts\activate
-3.Install dependencies
-
-bash
-Copy
-Edit
-pip install -r requirements.txt
-4.Run migrations
-
-bash
-Copy
-Edit
-python manage.py migrate
-5.Create a superuser (optional)
-
-bash
-Copy
-Edit
-python manage.py createsuperuser
-6.Run the server
-
-bash
-Copy
-Edit
-python manage.py runserver
