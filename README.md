@@ -63,7 +63,7 @@ social-media-app/
 ---
 
 ## 📸 Screenshots
-C:\Users\HP\OneDrive\Desktop\SOHAM\Django\Social Media App\env\Scripts\socialproject\images\homepage.png
+
 
 ---
 
